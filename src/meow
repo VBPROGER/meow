@@ -1,2 +1,91 @@
 #!/bin/bash
-# ...
+
+function pass(){ # "psas" was the old name :)
+	:
+}
+function meowecho(){
+	echo "meow: ${1}"
+}
+function meowpass(){
+	pass
+}
+
+clear
+
+acedf="$1"
+arg2="$2"
+arg3="$3"
+arg4="$4"
+version="1.0.0"
+MEOWPATH=~/.meow
+ac="meow "
+
+mkdir -p $MEOWPATH 2>/dev/null
+
+if [[ "$acedf" == "" ]]; then
+	while true; do
+		read -p "" "meow"
+		echo $meow
+	done
+elif [[ "$acedf" == "mew" ]]; then
+	meowecho "processing..."
+	to_download=$arg2
+	force_mode=$arg3
+	if [[ "$force_mode" == "/F" ]] || [[ "$force_mode" == "/f" ]] || [[ "$force_mode" == "-f" ]] || [[ "$force_mode" == "--f" ]]; then
+	meowpass
+	else
+	meowecho " \\|/ Read the text below!
+------=------------------=------------------=
+WARNING: folders will be ignored and
+content will be saved as \"404: Not Found\"
+>> TIP: To hide this message, use \"/F\" as argument.
+------=------------------=------------------="
+	fi
+	meowecho "downloading..."
+	mkdir -p $MEOWPATH/${to_download} 2>/dev/null
+	# url="https://api.github.com/repos/vbproger/meow/git/trees/main?recursive=1"
+	meowecho "downloading \"main\" file..."
+	/usr/bin/env curl https://raw.githubusercontent.com/VBPROGER/meow/main/pkg/$to_download/main > ${MEOWPATH}/${to_download}/main 2>/dev/null
+	/usr/bin/chmod +x ${MEOWPATH}/${to_download}/main 2>/dev/null
+	meowecho "downloading \"todownload\" file..."
+	/usr/bin/env curl https://raw.githubusercontent.com/VBPROGER/meow/main/pkg/$to_download/todownload > ${MEOWPATH}/${to_download}/todownload 2>/dev/null
+	/usr/bin/chmod +x ${MEOWPATH}/${to_download}/todownload 2>/dev/null
+	meowecho "checking required file(s)/folder(s) file..."
+	for line in `cat ${MEOWPATH}/${to_download}/todownload`; do
+		meowecho "downloading \"$line\" file by request..."
+		/usr/bin/env curl https://raw.githubusercontent.com/VBPROGER/meow/main/pkg/$to_download/$line > ${MEOWPATH}/${to_download}/$line 2>/dev/null
+		/usr/bin/chmod +x ${MEOWPATH}/${to_download}/$line 2>/dev/null
+	done
+elif [[ "$acedf" == "grepa" ]]; then
+	meowecho "initialiazing \"grepa\"..."
+elif [[ "$acedf" == "help" ]]; then
+	meowecho "--- meow v${version} ---
+welcome!
+
+-..- CMD HELP -..-
+
+${ac}help [*anyarguments]
+	shows list of commands,
+	info and more.
+${ac}mew <name> | [-f] || [--f] || [/f] || [/F] | [*anyarguments]
+	download/install package by
+	name using the \"mew\" method.
+	downloading/installing folders
+	is not allowed, if is even mentioned
+	in the \"todownload\" file.
+	if \"force\" argument is not
+	equals \"null\" then meow
+	will ignore ~~all~~ folder errors.
+${ac}grepa [*anyarguments]
+	initialiaze grepa.
+
+-..- EXAMPLES FOR CMD -..-
+
+${ac}mew firstpkg /F
+# will download the FIRST package
+# of meow. \"/F\" used to force
+# ignore all folder errors.
+"
+else
+	meowecho "welcome to meow, v${version}."
+fi
