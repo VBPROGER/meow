@@ -35,7 +35,9 @@ Click here[^notaviablemethod].
 Click here[^notaviablemethod].
 ## How do I see all packages?
 The files are stored in the **`~/.meow`** folder.
+
 You can try using the "`ulist`[^notaviablemethod]" ~~command~~ argument.
+
 ~~If this is not working, ...~~
 <br>
 # Other
