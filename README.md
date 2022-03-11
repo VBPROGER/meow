@@ -22,15 +22,16 @@ Click here[^notsupported].
 ### Linux
 Open terminal and paste this code:
 ```bash
-curl https://raw.githubusercontent.com/VBPROGER/meow/main/src/meow>~/.local/bin/meow 2>/dev/null;
-chmod u+x ~/.local/bin/meow
+meow mew name /F
 ```
 ### Mac OS
 Open "**`term.app`**" and paste this code:
 ```bash
-curl https://raw.githubusercontent.com/VBPROGER/meow/main/src/meow>~/meow 2>/dev/null;
-chmod u+x ~/meow
+~/meow mew name /F
 ```
+## How do I download package?
+Click here[^notaviablemethod].
 # Other
 ## Footnotes
 [^notsupported]: Currently this program only supports Mac OS and Linux.
+[^notaviablemethod]: Sorry, this method is not aviable yet.
