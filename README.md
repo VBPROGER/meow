@@ -29,9 +29,16 @@ Open "**`term.app`**" and paste this code:
 ```bash
 ~/meow mew name /F
 ```
-## How do I download package?
+## How do I remove a package?
 Click here[^notaviablemethod].
+## How do I remove all packages?
+Click here[^notaviablemethod].
+## How do I see all packages?
+The files are stored in the **`~/.meow`** folder.
+You can try using the "ulist[^notaviablemethod]" command.
+~~If this is not working, ...~~
+<br>
 # Other
 ## Footnotes
 [^notsupported]: Currently this program only supports Mac OS and Linux.
-[^notaviablemethod]: Sorry, this method is not aviable yet.
+[^notaviablemethod]: Sorry, this method/function is not aviable yet.
