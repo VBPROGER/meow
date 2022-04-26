@@ -42,6 +42,8 @@ You can try using the "`ulist`[^notaviablemethod]" ~~command~~ argument.
 <br>
 # Other
 ## Footnotes
+Click here[^footnotesmoved].
+[^footnotesmoved]: The footnote locations are moved down automatically.
 [^notsupported]: Currently this program only supports Mac OS and Linux.
 [^notaviablemethod]: Sorry, this method/function is not aviable yet.
 ## Credits
