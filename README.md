@@ -51,7 +51,7 @@ This program was made by me and I do not need
 
 to credit anyone, I think.
 ## License
-MIT
+`MIT`
 ## License text
 ```text/plain
 MIT License
