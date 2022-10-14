@@ -147,7 +147,7 @@ elif [[ "$acedf" == "clean" ]]; then
 			rm -rf "$filename"
 		done
 	fi
-	if [[ "$arg2" == '-c' || "$arg2" == '--cache' || "$arg3" == '-c' || "$arg3" == '--cache' ||  ]]; then
+	if [[ "$arg2" == '-c' || "$arg2" == '--cache' || "$arg3" == '-c' || "$arg3" == '--cache' ]]; then
 		# Also delete cached backup
 		# if exists (not really safe!)
 		if [[ -f ~/.cache/meow.bak ]]; then
