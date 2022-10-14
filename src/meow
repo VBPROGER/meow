@@ -12,6 +12,19 @@ function meowpass(){
 function meowautoclear(){
 	clear || meowpass
 }
+function _pullme(){
+	type="$1"
+	if [[ "$type" == "linux" ]]; then
+		curl https://raw.githubusercontent.com/VBPROGER/meow/main/src/meow>~/.local/bin/meow 2>/dev/null;
+		chmod u+x ~/.local/bin/meow
+	elif [[ "$type" == "darwin" ]]; then
+		# Note: On darwin, you need to install cUrl by yourself, because it's not installed by default
+		curl https://raw.githubusercontent.com/VBPROGER/meow/main/src/meow>~/meow 2>/dev/null;
+		chmod u+x ~/meow
+	else
+		meowecho 'Something went wrong, failed to determine OS type'
+	fi
+}
 
 acedf="$1"
 arg2="$2"
@@ -78,10 +91,12 @@ ${ac}ulist [-s] || [--strip] [*anyarguments]
 	get list of aviable packages.
 	if -s is used, then it will
 	not create newline at the end
-
 ${ac}clean <-f> || <--force> [*anyarguments]
 	delete all installed packages
 	from the current machine.
+${ac}pullme [*anyarguments]
+       update self to the newest
+	version of MEOW package manager.
 
 -..- EXAMPLES FOR CMD -..-
 
@@ -93,6 +108,8 @@ ${ac}del firstpkg
 # will delete package with the name \"firstpkg\"
 ${ac}clean -f
 # clean all packages (wipe)
+${ac}pullme
+# update self
 "
 elif [[ "$acedf" == "ulist" ]]; then
 	for filename in "${MEOWPATH?:}"/*; do
@@ -118,6 +135,28 @@ elif [[ "$acedf" == "clean" ]]; then
 			rm -rf "$filename"
 		done
 	fi
+elif [[ "$acedf" == "pullme" ]]; then
+	meowecho 'Pulling the newest MEOW version...'
+	if [[ "$arg2" == '' ]]; then
+		if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+				_pullme linux
+		elif [[ "$OSTYPE" == "darwin"* ]]; then
+				_pullme darwin
+		elif [[ "$OSTYPE" == "cygwin" ]]; then
+				_pullme linux
+		elif [[ "$OSTYPE" == "msys" ]]; then
+				_pullme linux
+		elif [[ "$OSTYPE" == "win32" ]]; then
+				meowecho "Windows is not supported"
+		elif [[ "$OSTYPE" == "freebsd"* ]]; then
+				_pullme linux
+		else
+				meowecho 'Unsupported OS type: '"\"${OSTYPE}\""
+		fi
+	else
+		_pullme "$arg2"
+	fi
+	meowecho 'Done!'
 else
 	meowecho "welcome to meow, v${version}."
 fi
