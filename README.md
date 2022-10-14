@@ -1,7 +1,7 @@
 # meow
 ''MEOW'' is a package manager for Linux (like PKM, but improved!). Source code is here &amp; also packages will be stored here.
 # FAQ
-## How do I download this program ~~to my PC~~?
+## How do I download this program?
 ### Windows
 Currently this program only supports Mac OS and Linux.
 ### Linux
