@@ -10,13 +10,15 @@ Open terminal and paste this code:
 curl https://raw.githubusercontent.com/VBPROGER/meow/main/src/meow>~/.local/bin/meow 2>/dev/null;
 chmod u+x ~/.local/bin/meow
 ```
+Also you can download it from releases page.
 ### Mac OS
 Open "**`term.app`**" and paste this code:
 ```bash
 curl https://raw.githubusercontent.com/VBPROGER/meow/main/src/meow>~/meow 2>/dev/null;
 chmod u+x ~/meow
 ```
-## How do I download package?
+Also you can download it from releases page.
+## How do I download package? ⬇️
 ### Windows
 Click here[^notsupported].
 ### Linux
@@ -30,14 +32,36 @@ Open "**`term.app`**" and paste this code:
 ```bash
 ~/meow mew name /F
 ```
-## How do I remove a package?
-Click here[^notaviablemethod].
-## How do I remove all packages?
-Click here[^notaviablemethod].
-## How do I see all packages?
+## How do I remove a package? :x:
+### Windows
+Click here[^notsupported].
+### Linux
+```bash
+meow del name
+```
+### Mac OS
+Open "**`term.app`**" and paste this code:
+```bash
+~/meow del name
+```
+## How do I remove all packages? :x: :clipboard:
+### Windows
+Click here[^notsupported].
+### Linux
+```bash
+meow clean -f
+```
+### Mac OS
+Open "**`term.app`**" and paste this code:
+```bash
+~/meow clean -f
+```
+## How do I see all aviable packages? 📦 :eye: ⬇️
+Just click [here](https://github.com/VBPROGER/meow/tree/main/pkg) \(*github.com/VBPROGER/meow/tree/main/pkg*\).
+## How do I see all installed packages? 📦 :eye: :clipboard:
 The files are stored in the **`~/.meow`** folder.
 
-You can try using the "`ulist` argument.
+You can try view them using the "`ulist` argument.
 <br>
 # Other
 ## Footnotes
@@ -48,7 +72,9 @@ Click here[^footnotesmoved].
 ## Credits
 This program was made by me and I do not need
 
-to credit anyone, I think.
+to credit anyone. If I've forgotten to credit
+
+you, please tell me about that.
 ## License
 `MIT`
 ## License text
