@@ -62,15 +62,22 @@ ${ac}mew <name> [*anyarguments]
 	if \"force\" argument is not
 	equals \"null\" then meow
 	will ignore ~~all~~ folder errors.
-${ac}ulist [-s] || [--strip] [*anyarguments]
-	get list of aviable packages.
-	if -s is used, then it will
-	not create newline at the end
 ${ac}del <name> [-s] || [--silent] [*anyarguments]
 	will attempt to delete package
 	with name <name>, if not installed,
 	will show error (if -s || --silent
 	argument is not used).
+${ac}run <name> [*anyarguments]
+	make the package executable
+	and launch it, if possible.
+	if package with name <name>
+	does not exist, it will show
+	error. there's no way yet
+	to hide this error.
+${ac}ulist [-s] || [--strip] [*anyarguments]
+	get list of aviable packages.
+	if -s is used, then it will
+	not create newline at the end
 ${ac}clean <-f> || <--force> [*anyarguments]
 	delete all installed packages
 	from the current machine.
@@ -78,13 +85,15 @@ ${ac}clean <-f> || <--force> [*anyarguments]
 -..- EXAMPLES FOR CMD -..-
 
 ${ac}mew mycoolpackage
-# will download package with name 'mycoolpackage'.
+# download package with name 'mycoolpackage'
 ${ac}ulist --strip
 # will show all packages (no newline at the end)
 ${ac}del firstpkg
-# will delete package with the name \"firstpkg\"
+# will delete package with name \"firstpkg\"
 ${ac}clean -f
 # clean all packages (wipe)
+${ac}run firstpkg
+# run package with name \"firstpkg\"
 "
 elif [[ "$acedf" == "ulist" ]]; then
 	for filename in "$MEOWPATH/*"; do
@@ -110,6 +119,12 @@ elif [[ "$acedf" == "clean" ]]; then
 			rm -rf "$filename"
 		done
 	fi
+elif [[ "$acedf" == "run" ]]; then
+	if [[ "$arg2" != '' ]]; then
+		chmod +x "$MEOWPATH/$arg2/main"
+		./"$MEOWPATH/$arg2/main"
+	else
+		meowecho "package with name '${arg2}' does not exist."
 else
 	meowecho "welcome to meow, v${version}."
 fi
