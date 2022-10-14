@@ -98,7 +98,7 @@ elif [[ "$acedf" == "ulist" ]]; then
 	for filename in "${MEOWPATH?:}"/*; do
 			printf "%s\n" "${filename}"
 		done
-		if [[ ("$arg2" != "-s") || ("$arg2" != "") ]]; then
+		if [[ ("$arg2" != "-s") && ("$arg2" != "--strip") ]]; then
 			echo ''
 		fi
 elif [[ "$acedf" == "del" ]]; then
@@ -117,14 +117,6 @@ elif [[ "$acedf" == "clean" ]]; then
 		for filename in "${MEOWPATH}"/*; do
 			rm -rf "$filename"
 		done
-	fi
-elif [[ "$acedf" == "run" ]]; then
-	if [[ "$arg2" != '' ]]; then
-		chmod +x "$MEOWPATH/$arg2/main"
-		# shellcheck disable=SC1090
-		. "$MEOWPATH/$arg2/main"
-	else
-		meowecho "package with name '${arg2}' does not exist."
 	fi
 else
 	meowecho "welcome to meow, v${version}."
