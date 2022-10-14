@@ -118,6 +118,14 @@ elif [[ "$acedf" == "clean" ]]; then
 			rm -rf "$filename"
 		done
 	fi
+elif [[ "$acedf" == "run" ]]; then
+	if [[ "$arg2" != '' ]]; then
+		chmod +x "$MEOWPATH/$arg2/main"
+		# shellcheck disable=SC1090
+		. "$MEOWPATH/$arg2/main"
+	else
+		meowecho "package with name '${arg2}' does not exist."
+	fi
 else
 	meowecho "welcome to meow, v${version}."
 fi
