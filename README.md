@@ -22,6 +22,7 @@ Click here[^notsupported].
 ### Linux
 Open terminal and paste this code:
 ```bash
+# Be sure that your shell suports ~/.local/bin folder!
 meow mew name /F
 ```
 ### Mac OS
