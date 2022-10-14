@@ -94,9 +94,12 @@ ${ac}ulist [-s] || [--strip] [*anyarguments]
 ${ac}clean <-f> || <--force> [*anyarguments]
 	delete all installed packages
 	from the current machine.
-${ac}pullme [*anyarguments]
+${ac}pullme [-u] || [--unasfe] [*anyarguments]
        update self to the newest
 	version of MEOW package manager.
+	if [-u] || [--unsafe] argument
+	is used, then script will not
+	copy itself to the cache folder.
 
 -..- EXAMPLES FOR CMD -..-
 
@@ -110,6 +113,8 @@ ${ac}clean -f
 # clean all packages (wipe)
 ${ac}pullme
 # update self
+${ac}pullme -u
+# update self (don't create self backup)
 "
 elif [[ "$acedf" == "ulist" ]]; then
 	for filename in "${MEOWPATH?:}"/*; do
@@ -137,6 +142,10 @@ elif [[ "$acedf" == "clean" ]]; then
 	fi
 elif [[ "$acedf" == "pullme" ]]; then
 	meowecho 'Pulling the newest MEOW version...'
+	if [[ ! ("$arg3" == '-u' || "$arg3" == '--unsafe') ]]; then
+		meowecho 'Creating self backup at ~/.cache/meow.bak'
+		cp "$0" ~/.cache/meow.bak
+	fi
 	if [[ "$arg2" == '' ]]; then
 		if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 				_pullme linux
