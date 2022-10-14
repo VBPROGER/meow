@@ -78,6 +78,11 @@ ${ac}ulist [-s] || [--strip] [*anyarguments]
 	get list of aviable packages.
 	if -s is used, then it will
 	not create newline at the end
+${ac}del <name> [-s] || [--silent] [*anyarguments]
+	will attempt to delete package
+	with name <name>, if not installed,
+	will show error (if -s || --silent
+	argument is not used).
 
 -..- EXAMPLES FOR CMD -..-
 
@@ -87,13 +92,26 @@ ${ac}mew firstpkg /F
 # ignore all folder errors.
 ${ac}ulist --strip
 # will show all packages (no newline at the end)
+${ac}del firstpkg
+# will delete package with the name \"firstpkg\"
 "
 elif [[ "$acedf" == "ulist" ]]; then
-for filename in "$MEOWPATH/*"; do
-		printf "$filename\n"
-	done
-	if [[ ("$arg2" != "-s") || ("$arg2" != "") ]]; then
-		echo ''
+	for filename in "$MEOWPATH/*"; do
+			printf "$filename\n"
+		done
+		if [[ ("$arg2" != "-s") || ("$arg2" != "") ]]; then
+			echo ''
+		fi
+elif [[ "$acedf" == "del" ]]; then
+	if [[ "$arg2" != '' ]]; then
+		rm -rf "$MEOWPATH/$arg2" 2>/dev/null &>/dev/null
+		if [[ "$arg3" == '-s' || "$arg3" == '--silent' ]]; then
+			echo "meow: successfully removed pkg with name '${arg2}'"
+		fi
+	else
+		if [[ "$arg3" == '-s' || "$arg3" == '--silent' ]]; then
+			echo "meow: failed to remove pkg with name '${arg2}'"
+		fi
 	fi
 else
 	meowecho "welcome to meow, v${version}."
