@@ -91,10 +91,14 @@ ${ac}ulist [-s] || [--strip] [*anyarguments]
 	get list of aviable packages.
 	if -s is used, then it will
 	not create newline at the end
-${ac}clean <-f> || <--force> [*anyarguments]
+${ac}clean <-f> || <--force>; [-c] || [--cached] [*anyarguments]
 	delete all installed packages
 	from the current machine.
-${ac}pullme [-u] || [--unasfe] [*anyarguments]
+	if [-c] || [--cached] arguments is used,
+	then cached reserve copy of self, if
+	exists, will be removed (usually created
+	during updates (pullme))
+${ac}pullme [-u] || [--unsafe] [*anyarguments]
        update self to the newest
 	version of MEOW package manager.
 	if [-u] || [--unsafe] argument
@@ -111,6 +115,9 @@ ${ac}del firstpkg
 # will delete package with the name \"firstpkg\"
 ${ac}clean -f
 # clean all packages (wipe)
+${ac}clean -f -c
+# clean all packages (wipe) and deleted
+# cached reserve copy of self
 ${ac}pullme
 # update self
 ${ac}pullme -u
@@ -139,6 +146,13 @@ elif [[ "$acedf" == "clean" ]]; then
 		for filename in "${MEOWPATH}"/*; do
 			rm -rf "$filename"
 		done
+	fi
+	if [[ "$arg2" == '-c' || "$arg2" == '--cache' || "$arg3" == '-c' || "$arg3" == '--cache' ||  ]]; then
+		# Also delete cached backup
+		# if exists (not really safe!)
+		if [[ -f ~/.cache/meow.bak ]]; then
+			rm -f ~/.cache/meow.bak 2>/dev/null
+		fi
 	fi
 elif [[ "$acedf" == "pullme" ]]; then
 	meowecho 'Pulling the newest MEOW version...'
