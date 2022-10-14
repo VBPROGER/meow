@@ -42,22 +42,20 @@ content will be saved as \"404: Not Found\"
 ------=------------------=------------------="
 	fi
 	meowecho "downloading..."
-	mkdir -p $MEOWPATH/${to_download} 2>/dev/null
+	mkdir -p "$MEOWPATH/${to_download}" 2>/dev/null
 	# url="https://api.github.com/repos/vbproger/meow/git/trees/main?recursive=1"
 	meowecho "downloading \"main\" file..."
-	/usr/bin/env curl https://raw.githubusercontent.com/VBPROGER/meow/main/pkg/$to_download/main > ${MEOWPATH}/${to_download}/main 2>/dev/null
-	/usr/bin/chmod +x ${MEOWPATH}/${to_download}/main 2>/dev/null
+	/usr/bin/env curl "https://raw.githubusercontent.com/VBPROGER/meow/main/pkg/$to_download/main" > "${MEOWPATH}/${to_download}/main" 2>/dev/null
+	/usr/bin/chmod +x "${MEOWPATH}/${to_download}"/main 2>/dev/null
 	meowecho "downloading \"todownload\" file..."
-	/usr/bin/env curl https://raw.githubusercontent.com/VBPROGER/meow/main/pkg/$to_download/todownload > ${MEOWPATH}/${to_download}/todownload 2>/dev/null
+	/usr/bin/env curl "https://raw.githubusercontent.com/VBPROGER/meow/main/pkg/$to_download/todownload" > "${MEOWPATH}/${to_download}"/todownload 2>/dev/null
 	/usr/bin/chmod +x ${MEOWPATH}/${to_download}/todownload 2>/dev/null
 	meowecho "checking required file(s)/folder(s) file..."
 	for line in `cat ${MEOWPATH}/${to_download}/todownload`; do
 		meowecho "downloading \"$line\" file by request..."
-		/usr/bin/env curl https://raw.githubusercontent.com/VBPROGER/meow/main/pkg/$to_download/$line > ${MEOWPATH}/${to_download}/$line 2>/dev/null
-		/usr/bin/chmod +x ${MEOWPATH}/${to_download}/$line 2>/dev/null
+		/usr/bin/env curl "https://raw.githubusercontent.com/VBPROGER/meow/main/pkg/$to_download/$line" > "${MEOWPATH}/${to_download}/$line" 2>/dev/null
+		/usr/bin/chmod +x "${MEOWPATH}/${to_download}/$line" 2>/dev/null
 	done
-elif [[ "$acedf" == "grepa" ]]; then
-	meowecho "initialiazing \"grepa\"..."
 elif [[ "$acedf" == "help" ]]; then
 	meowecho "--- meow v${version} ---
 welcome!
@@ -76,8 +74,10 @@ ${ac}mew <name> | [-f] || [--f] || [/f] || [/F] | [*anyarguments]
 	if \"force\" argument is not
 	equals \"null\" then meow
 	will ignore ~~all~~ folder errors.
-${ac}grepa [*anyarguments]
-	initialiaze grepa.
+${ac}ulist [-s] || [--strip] [*anyarguments]
+	get list of aviable packages.
+	if -s is used, then it will
+	not create newline at the end
 
 -..- EXAMPLES FOR CMD -..-
 
@@ -85,7 +85,16 @@ ${ac}mew firstpkg /F
 # will download the FIRST package
 # of meow. \"/F\" used to force
 # ignore all folder errors.
+${ac}ulist --strip
+# will show all packages (no newline at the end)
 "
+elif [[ "$acedf" == "ulist" ]]; then
+for filename in "$MEOWPATH/*"; do
+		printf "$filename\n"
+	done
+	if [[ ("$arg2" != "-s") || ("$arg2" != "") ]]; then
+		echo ''
+	fi
 else
 	meowecho "welcome to meow, v${version}."
 fi
