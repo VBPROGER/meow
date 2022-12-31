@@ -59,9 +59,8 @@ Open "**`term.app`**" and paste this code:
 ## How do I see all aviable packages? 📦 :eye: ⬇️
 Just click [here](https://github.com/VBPROGER/meow/tree/main/pkg) \(*github.com/VBPROGER/meow/tree/main/pkg*\).
 ## How do I see all installed packages? 📦 :eye: :clipboard:
-The files are stored in the **`~/.meow`** folder.
-
-You can try view them using the "`ulist` argument.
+The files are stored in the **`~/.meow`** folder.<br>
+You can try view them using the "`ulist`" argument.
 <br>
 # Other
 ## Footnotes
@@ -70,10 +69,8 @@ Click here[^footnotesmoved].
 [^notsupported]: Currently this program only supports Mac OS and Linux.
 [^notaviablemethod]: Sorry, this method/function is not aviable yet.
 ## Credits
-This program was made by me and I do not need
-
-to credit anyone. If I've forgotten to credit
-
+This program was made by me and I do not need<br>
+to credit anyone. If I've forgotten to credit<br>
 you, please tell me about that.
 ## License
 `MIT`
