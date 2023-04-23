@@ -1,4 +1,12 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+acedf="$1"
+arg2="$2"
+arg3="$3"
+MEOWVERSION="1.0.1"
+MEOWPATH=~/.meow
+MEOWBACKUP=~/.cache/meow.bak
+ac="meow "
 
 function pass(){
 	:
@@ -6,13 +14,13 @@ function pass(){
 function meowecho(){
 	echo "meow: ${1}"
 }
-function meowpass(){
+function meowpass(){ # Alias to pass
 	pass
 }
 function meowautoclear(){
 	clear || meowpass
 }
-function _pullme(){
+function meowpull(){
 	type="$1"
 	if [[ "$type" == "linux" ]]; then
 		curl https://raw.githubusercontent.com/VBPROGER/meow/main/src/meow>~/.local/bin/meow 2>/dev/null;
@@ -26,19 +34,12 @@ function _pullme(){
 	fi
 }
 
-acedf="$1"
-arg2="$2"
-arg3="$3"
-version="1.0.0"
-MEOWPATH=~/.meow
-ac="meow "
-
 mkdir -p $MEOWPATH 2>/dev/null
 
 if [[ "$acedf" == "" ]]; then
 	while true; do
-		read -p "" "meow"
-		echo $meow
+		read -rp "" "meow"
+		echo "$meow"
 	done
 elif [[ "$acedf" == "mew" ]]; then
 	meowecho "processing..."
@@ -52,13 +53,13 @@ elif [[ "$acedf" == "mew" ]]; then
 	/usr/bin/env curl "https://raw.githubusercontent.com/VBPROGER/meow/main/pkg/$to_download/todownload" > "${MEOWPATH}/${to_download}"/todownload 2>/dev/null
 	/usr/bin/chmod +x ${MEOWPATH}/${to_download}/todownload 2>/dev/null
 	meowecho "checking required file(s)/folder(s) file..."
-	for line in `cat ${MEOWPATH}/${to_download}/todownload`; do
+	for line in $(cat ${MEOWPATH}/${to_download}/todownload); do
 		meowecho "downloading \"$line\" file by request..."
 		/usr/bin/env curl "https://raw.githubusercontent.com/VBPROGER/meow/main/pkg/$to_download/$line" > "${MEOWPATH}/${to_download}/$line" 2>/dev/null
 		/usr/bin/chmod +x "${MEOWPATH}/${to_download}/$line" 2>/dev/null
 	done
 elif [[ "$acedf" == "help" ]]; then
-	meowecho "--- meow v${version} ---
+	meowecho "--- meow v${MEOWVERSION} ---
 welcome!
 
 -..- CMD HELP -..-
@@ -100,7 +101,7 @@ ${ac}clean <-f> || <--force>; [-c] || [--cached] [*anyarguments]
 	during updates (pullme))
 ${ac}pullme [-u] || [--unsafe] [*anyarguments]
        update self to the newest
-	version of MEOW package manager.
+	MEOWVERSION of MEOW package manager.
 	if [-u] || [--unsafe] argument
 	is used, then script will not
 	copy itself to the cache folder.
@@ -150,34 +151,34 @@ elif [[ "$acedf" == "clean" ]]; then
 	if [[ "$arg2" == '-c' || "$arg2" == '--cache' || "$arg3" == '-c' || "$arg3" == '--cache' ]]; then
 		# Also delete cached backup
 		# if exists (not really safe!)
-		if [[ -f ~/.cache/meow.bak ]]; then
-			rm -f ~/.cache/meow.bak 2>/dev/null
+		if [[ -f "$MEOWBACKUP" ]]; then
+			rm -f "$MEOWBACKUP" 2>/dev/null
 		fi
 	fi
 elif [[ "$acedf" == "pullme" ]]; then
-	meowecho 'Pulling the newest MEOW version...'
+	meowecho 'Pulling the newest MEOW MEOWVERSION...'
 	if [[ ! ("$arg3" == '-u' || "$arg3" == '--unsafe') ]]; then
-		meowecho 'Creating self backup at ~/.cache/meow.bak'
-		cp "$0" ~/.cache/meow.bak
+		meowecho "Creating self backup at $MEOWBACKUP"
+		cp "$0" "$MEOWBACKUP"
 	fi
 	if [[ "$arg2" == '' ]]; then
 		if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-				_pullme linux
+				meowpull linux
 		elif [[ "$OSTYPE" == "darwin"* ]]; then
-				_pullme darwin
+				meowpull darwin
 		elif [[ "$OSTYPE" == "cygwin" ]]; then
-				_pullme linux
+				meowpull linux
 		elif [[ "$OSTYPE" == "msys" ]]; then
-				_pullme linux
+				meowpull linux
 		elif [[ "$OSTYPE" == "win32" ]]; then
 				meowecho "Windows is not supported"
 		elif [[ "$OSTYPE" == "freebsd"* ]]; then
-				_pullme linux
+				meowpull linux
 		else
 				meowecho 'Unsupported OS type: '"\"${OSTYPE}\""
 		fi
 	else
-		_pullme "$arg2"
+		meowpull "$arg2"
 	fi
 	meowecho 'Done!'
 elif [[ "$acedf" == "run" ]]; then
@@ -189,5 +190,5 @@ elif [[ "$acedf" == "run" ]]; then
 		meowecho "package with name '${arg2}' does not exist."
 	fi
 else
-	meowecho "welcome to meow, v${version}."
+	meowecho "welcome to meow, v${MEOWVERSION}."
 fi
